@@ -19,29 +19,28 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-
-            <form style={styles.table}
-                onSubmit={this.handleSubmit}>
-                <h3 style={styles.h3}> Username or email</h3>
-                <input
-                    style={styles.input}
-                    onChange={this.handleChange}
-                    name='user'
-                    value={this.state.user}
-                    placeholder='username'
-                />
-                <h3 style={styles.h3}> Password</h3>
-                <input
-                    style={styles.input}
-                    onChange={this.handleChange}
-                    name='password'
-                    value={this.state.password}
-                    placeholder='password'
-                />
-                <h3>
+            <div style={{ height: '80vh' }}>
+                <form style={styles.table}
+                    onSubmit={this.handleSubmit}>
+                    <h3 style={styles.h3}> Username or email</h3>
+                    <input
+                        style={styles.input}
+                        onChange={this.handleChange}
+                        name='user'
+                        value={this.state.user}
+                        placeholder='username'
+                    />
+                    <h3 style={styles.h3}> Password</h3>
+                    <input
+                        style={styles.input}
+                        onChange={this.handleChange}
+                        name='password'
+                        value={this.state.password}
+                        placeholder='password'
+                    />
                     <button style={styles.button}>Log in</button>
-                </h3>
-            </form>
+                </form>
+            </div>
 
         )
     }
@@ -55,7 +54,8 @@ const styles = {
         border: '1px solid black',
         left: '18%',
         position: 'relative',
-        top: '16px'
+        top: '16px',
+
     },
     table: {
         position: 'relative',

@@ -15,7 +15,7 @@ export default class SlideshowAus extends React.Component {
     }
     prevImage = () => {
         let { index } = this.state;
-        if (index != 0) {
+        if (index !== 0) {
             index--
             this.setState({ index })
         }
@@ -25,13 +25,13 @@ export default class SlideshowAus extends React.Component {
         return (
             <div style={styles.slideContainer}>
                 <span onClick={prevImage}>
-                    <input style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/back.png' />
+                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/back.png' />
                 </span>
                 <span>
-                    <input style={styles.image} src={slideSetAus[index]} />
+                    <img style={styles.image} src={slideSetAus[index]} />
                 </span>
                 <span onClick={nextImage}>
-                    <input style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/right-arrow.png' />
+                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/right-arrow.png' />
                 </span>
             </div>
         )

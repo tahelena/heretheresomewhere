@@ -19,7 +19,6 @@ export default class Portraits extends React.Component {
                             )
                         })
                     }
-
                 </div>
             </div>
         )

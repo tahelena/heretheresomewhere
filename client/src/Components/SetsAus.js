@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 export default class SetsAus extends React.Component {
@@ -11,7 +10,7 @@ export default class SetsAus extends React.Component {
                     <span style={styles.image}>
                         <NavLink
                             style={styles.button}
-                            to='/ss/australia'>
+                            to='/sets/australia/ss'>
                             <h1>Australia</h1>
                             <h2>Long drive</h2>
                             <p> July 2016 - Jan 2017</p>

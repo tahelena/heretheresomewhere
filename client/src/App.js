@@ -18,6 +18,8 @@ export default class Main extends React.Component {
               <img style={styles.icon} src="https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/menu.png" alt='menu icon' />
             </button>
 
+            <Cart />
+
             <NavLink
               style={styles.button}
               to='/'>
@@ -28,13 +30,12 @@ export default class Main extends React.Component {
             <Route exact path='/admin' component={Login} />
             <Route exact path='/about' component={About} />
             <Route exact path='/sets/australia' component={SetsAus} />
-            <Route exact path='/ss/australia' component={SlideshowAus} />
+            <Route exact path='/sets/australia/ss' component={SlideshowAus} />
             <Route exact path='/gallery/portrait' component={Portraits} />
-            <Route exact path='/cart' component={Cart} />
 
           </span>
           <span style={styles.footer}>
-            <h5>© 2019 tahelena </h5>
+            <h5> © 2019 tahelena </h5>
           </span>
         </div>
       </Router>

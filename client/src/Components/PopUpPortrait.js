@@ -5,12 +5,14 @@ export default class PopUpPortrait extends React.Component {
     state = {
         visible: false
     }
-    openModal() {
+    openModal = () => {
+        debugger
         this.setState({
             visible: true
         });
     }
-    closeModal() {
+    closeModal = () => {
+        debugger
         this.setState({
             visible: false
         });
@@ -24,24 +26,26 @@ export default class PopUpPortrait extends React.Component {
                 <img style={styles.image} src={img_url} alt={alt} value="Open" onClick={() => this.openModal()} />
                 <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                     <span>
-                        <a href="javascript:void(0);" onClick={() => this.closeModal()}><input style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' /> </a>
+                        <a href="javascript:void(0);" onClick={() => this.closeModal()}><img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' /> </a>
                         <div style={styles.popup}>
                             <span>
-                                <input style={styles.imagePopUp} src={img_url} alt={alt} />
+                                <img style={styles.imagePopUp} src={img_url} alt={alt} />
                                 <p style={styles.exif}> {exif}</p>
                                 <div style={styles.cartUp}>
                                     <h2>DO YOU LIKE THIS PICTURE?</h2>
                                     <p>A3 print on 300gsm fine art paper </p>
                                     <h3>€85.00</h3>
+
                                     <button style={styles.button}>buy</button>
+
                                     <p> For other sizes/finishes and digital use contact us</p>
                                     <a href="tahnluiz@gmail.com">tahnluiz@gmail.com</a>
 
                                 </div>
                             </span>
                             <span style={styles.iconColumn} >
-                                <input style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' />
-                                <input style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' />
+                                <img style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' />
+                                <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' />
 
                             </span>
                         </div>
@@ -76,6 +80,7 @@ const styles = {
         margin: '3em'
     },
     image: {
+        background: 'red',
         alignSelf: 'center',
         height: '20em',
         overflow: 'hidden',

@@ -22,17 +22,29 @@ export default class Cart extends React.Component {
             <section>
 
                 <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/supermarket.png' alt='cart icon' value="Open" onClick={() => this.openModal()} />
+
                 <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                     <span>
-                        <a href="javascript:void(0);" onClick={() => this.closeModal()}><img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' /> </a>
+                        <a href="javascript:void(0);" onClick={() => this.closeModal()}>
+                            <img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' />
+                        </a>
+
                         <div style={styles.popup}>
-                            <span>
+                            <span style={styles.mainBar}>
                                 <div>Item</div>
                                 <div>Qty</div>
                                 <div>Cost</div>
                             </span>
-                            <span></span>
-                            <span>
+
+
+                            <span style={styles.cartItems}>
+
+
+
+                            </span>
+
+
+                            <span style={styles.subTotal}>
                                 <div>Subtotal</div>
                                 <div>VALUE</div>
 
@@ -40,19 +52,44 @@ export default class Cart extends React.Component {
                         </div>
                     </span>
                 </Modal>
-
             </section>
         );
     }
 }
 const styles = {
     popup: {
-        display: 'grid',
-        gridTemplateColumns: '93% 7%',
+        display: 'block',
         height: '100%',
-
+        margin: '5em 8em',
     },
 
+    centralBlock: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        alignItems: 'center',
+        justifyItems: 'center',
+        margin: '3em'
+    },
+    cartItems: {
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        padding: '1em',
+        background: 'whitesmoke',
+    },
+    mainBar: {
+        display: 'grid',
+        gridTemplateColumns: '6fr 2fr 1fr',
+        padding: '1em',
+        background: 'lightgray',
+        textAlign: 'right',
+    },
+    subTotal: {
+        display: 'grid',
+        gridTemplateColumns: '2fr 1fr',
+        padding: '1em',
+        background: 'lightgray',
+        textAlign: 'right',
+    },
     imagePopUp: {
         objectFit: 'scale-down',
         maxWidth: '100%',
@@ -60,13 +97,6 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         margin: '0',
-    },
-    centralBlock: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-        alignItems: 'center',
-        justifyItems: 'center',
-        margin: '3em'
     },
     image: {
         alignSelf: 'center',
