@@ -3,19 +3,23 @@ import Modal from 'react-awesome-modal';
 
 export default class PopUpPortrait extends React.Component {
     state = {
-        visible: false
+        visible: false, display: 'none'
     }
-    openModal = () => {
-        debugger
+    openModal() {
+
         this.setState({
             visible: true
         });
     }
-    closeModal = () => {
-        debugger
+    closeModal() {
+
         this.setState({
             visible: false
         });
+    }
+    handleClick = () => {
+        if (this.state.display === 'none') return this.setState({ display: 'block' })
+        this.setState({ display: 'none' })
     }
 
     render() {
@@ -30,13 +34,13 @@ export default class PopUpPortrait extends React.Component {
                         <div style={styles.popup}>
                             <span>
                                 <img style={styles.imagePopUp} src={img_url} alt={alt} />
-                                <p style={styles.exif}> {exif}</p>
-                                <div style={styles.cartUp}>
+                                <p style={{ ...styles.exif, display: this.state.display }}> {exif}</p>
+                                <div style={{ ...styles.cartUp, display: this.state.display }}>
                                     <h2>DO YOU LIKE THIS PICTURE?</h2>
                                     <p>A3 print on 300gsm fine art paper </p>
                                     <h3>€85.00</h3>
 
-                                    <button style={styles.button}>buy</button>
+                                    <button style={styles.button}>add to cart</button>
 
                                     <p> For other sizes/finishes and digital use contact us</p>
                                     <a href="tahnluiz@gmail.com">tahnluiz@gmail.com</a>
@@ -44,8 +48,12 @@ export default class PopUpPortrait extends React.Component {
                                 </div>
                             </span>
                             <span style={styles.iconColumn} >
-                                <img style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' />
-                                <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' />
+                                <img
+                                    onClick={this.handleClick}
+                                    style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' />
+                                <img
+                                    onClick={this.handleClick}
+                                    style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' />
 
                             </span>
                         </div>
@@ -65,12 +73,12 @@ const styles = {
     },
 
     imagePopUp: {
+
         objectFit: 'scale-down',
         maxWidth: '100%',
         maxHeight: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        margin: '0',
+        display: 'grid',
+        margin: '0 auto',
     },
     centralBlock: {
         display: 'grid',
@@ -80,7 +88,7 @@ const styles = {
         margin: '3em'
     },
     image: {
-        background: 'red',
+
         alignSelf: 'center',
         height: '20em',
         overflow: 'hidden',
@@ -114,13 +122,13 @@ const styles = {
         alignItems: 'center',
     },
     exif: {
-        display: 'block',
+        display: 'flex',
         background: 'rgba(181, 180, 180, 0.7)',
         padding: '1em',
         textAlign: 'center',
         margin: '0 auto',
         color: 'black',
-        position: 'fixed',
+        // position: 'fixed',
         zIndex: '1000',
         bottom: '1.5vh',
         right: '9em',
@@ -134,7 +142,7 @@ const styles = {
         textAlign: 'center',
         margin: '0 auto',
         color: 'black',
-        position: 'fixed',
+        // position: 'fixed',
         zIndex: '1000',
         bottom: '6em',
         right: '9em',

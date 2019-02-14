@@ -17,7 +17,7 @@ export default class Cart extends React.Component {
     }
 
     render() {
-
+        let { img_url, alt } = this.props
         return (
             <section>
 
@@ -38,8 +38,6 @@ export default class Cart extends React.Component {
 
 
                             <span style={styles.cartItems}>
-
-
 
                             </span>
 
@@ -111,19 +109,18 @@ const styles = {
         height: '1em',
         padding: '1em',
         right: '0',
-        position: 'fixed'
+        // position: 'fixed'
     },
     icon: {
         height: '2em',
         padding: '0',
         left: '6em',
-        position: 'fixed',
     },
     iconCart: {
         height: '3em',
         padding: '1em',
         bottom: '5em',
-        position: 'fixed'
+        // position: 'fixed'
     },
     iconColumn: {
         display: 'flex',
@@ -138,7 +135,7 @@ const styles = {
         textAlign: 'center',
         margin: '0 auto',
         color: 'black',
-        position: 'fixed',
+        // position: 'fixed',
         zIndex: '1000',
         bottom: '6em',
         right: '9em',

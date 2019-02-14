@@ -19,29 +19,27 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <div style={{ height: '80vh' }}>
-                <form style={styles.table}
-                    onSubmit={this.handleSubmit}>
-                    <h3 style={styles.h3}> Username or email</h3>
-                    <input
-                        style={styles.input}
-                        onChange={this.handleChange}
-                        name='user'
-                        value={this.state.user}
-                        placeholder='username'
-                    />
-                    <h3 style={styles.h3}> Password</h3>
-                    <input
-                        style={styles.input}
-                        onChange={this.handleChange}
-                        name='password'
-                        value={this.state.password}
-                        placeholder='password'
-                    />
-                    <button style={styles.button}>Log in</button>
-                </form>
-            </div>
 
+            <form style={styles.table}
+                onSubmit={this.handleSubmit}>
+                <h3 style={styles.h3}> Username or email</h3>
+                <input
+                    style={styles.input}
+                    onChange={this.handleChange}
+                    name='user'
+                    value={this.state.user}
+                    placeholder='username'
+                />
+                <h3 style={styles.h3}> Password</h3>
+                <input
+                    style={styles.input}
+                    onChange={this.handleChange}
+                    name='password'
+                    value={this.state.password}
+                    placeholder='password'
+                />
+                <button style={styles.button}>Log in</button>
+            </form>
         )
     }
 }
