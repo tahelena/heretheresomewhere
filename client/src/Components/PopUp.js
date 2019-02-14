@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from 'react-awesome-modal';
 
-export default class PopUpPortrait extends React.Component {
+export default class PopUp extends React.Component {
     state = {
-        visible: false, display: 'none'
+        visible: false, displayOne: 'none', displayTwo: 'none'
     }
     openModal() {
 
@@ -17,9 +17,9 @@ export default class PopUpPortrait extends React.Component {
             visible: false
         });
     }
-    handleClick = () => {
-        if (this.state.display === 'none') return this.setState({ display: 'block' })
-        this.setState({ display: 'none' })
+    handleClick = (which) => {
+        if (this.state[which] === 'none') return this.setState({ [which]: 'block' })
+        this.setState({ [which]: 'none' })
     }
 
     render() {
@@ -34,8 +34,8 @@ export default class PopUpPortrait extends React.Component {
                         <div style={styles.popup}>
                             <span>
                                 <img style={styles.imagePopUp} src={img_url} alt={alt} />
-                                <p style={{ ...styles.exif, display: this.state.display }}> {exif}</p>
-                                <div style={{ ...styles.cartUp, display: this.state.display }}>
+                                <p style={{ ...styles.exif, display: this.state.displayTwo }}> {exif}</p>
+                                <div style={{ ...styles.cartUp, display: this.state.displayOne }}>
                                     <h2>DO YOU LIKE THIS PICTURE?</h2>
                                     <p>A3 print on 300gsm fine art paper </p>
                                     <h3>€85.00</h3>
@@ -49,10 +49,10 @@ export default class PopUpPortrait extends React.Component {
                             </span>
                             <span style={styles.iconColumn} >
                                 <img
-                                    onClick={this.handleClick}
+                                    onClick={() => this.handleClick('displayOne')}
                                     style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' />
                                 <img
-                                    onClick={this.handleClick}
+                                    onClick={() => this.handleClick('displayTwo')}
                                     style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' />
 
                             </span>
@@ -75,10 +75,11 @@ const styles = {
     imagePopUp: {
 
         objectFit: 'scale-down',
-        maxWidth: '100%',
-        maxHeight: '100%',
+        width: '99%',
+        height: '100%',
         display: 'grid',
         margin: '0 auto',
+        maxHeight: '100%'
     },
     centralBlock: {
         display: 'grid',
@@ -128,7 +129,7 @@ const styles = {
         textAlign: 'center',
         margin: '0 auto',
         color: 'black',
-        // position: 'fixed',
+        position: 'fixed',
         zIndex: '1000',
         bottom: '1.5vh',
         right: '9em',
@@ -142,7 +143,7 @@ const styles = {
         textAlign: 'center',
         margin: '0 auto',
         color: 'black',
-        // position: 'fixed',
+        position: 'fixed',
         zIndex: '1000',
         bottom: '6em',
         right: '9em',
@@ -162,5 +163,4 @@ const styles = {
         fontSize: 'x-large',
     }
 }
-
 

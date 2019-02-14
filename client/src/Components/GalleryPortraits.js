@@ -1,7 +1,7 @@
 import React from 'react';
 import { imgPortraits } from './images';
-import PopUpPortrait from './PopUpPortrait'
-export default class Portraits extends React.Component {
+import PopUp from './PopUp';
+export default class GalleryPortraits extends React.Component {
 
     render() {
         return (
@@ -10,7 +10,7 @@ export default class Portraits extends React.Component {
                     {
                         imgPortraits.map((picture, i) => {
                             return (
-                                <PopUpPortrait
+                                <PopUp
                                     key={i}
                                     img_url={picture.img_url}
                                     alt={picture.alt}
@@ -30,7 +30,7 @@ const styles = {
         gridTemplateColumns: '1fr 1fr 1fr 1fr',
         alignItems: 'center',
         justifyItems: 'center',
-        marginTop: '100px',
+        // marginTop: '100px',
     },
     image: {
         alignSelf: 'center',

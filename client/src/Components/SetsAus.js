@@ -10,7 +10,7 @@ export default class SetsAus extends React.Component {
                     <span style={styles.image}>
                         <NavLink
                             style={styles.button}
-                            to='/sets/australia/ss'>
+                            to='/gallery/australia'>
                             <h1>Australia</h1>
                             <h2>Long drive</h2>
                             <p> July 2016 - Jan 2017</p>

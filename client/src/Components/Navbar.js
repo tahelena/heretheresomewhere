@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom'
 
 export default class NavBar extends React.Component {
     render() {
+        let display = this.props.show ? 'block' : 'none';
         return (
-            <div style={styles.navbar}>
+            <div style={{ ...styles.navbar, display: display }}>
                 <span style={styles.bar}>
                     <div               >
                         <NavLink to="/"
@@ -18,28 +19,28 @@ export default class NavBar extends React.Component {
                             about
                             </NavLink>
                     </div>
-                    <div>
-                        <NavLink to="/portifolio"
-                            style={styles.activeStyle}>
+                    <details>
+                        <summary style={styles.activeStyle}>
                             portifolio
+                        </summary>
+                        <div style={styles.hidden}>
+                            <NavLink to="/sets/australia"
+                                style={styles.activeStyle}
+                            >
+                                sets
                             </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to="/places"
-                            style={styles.activeStyle}>
-                            places
+                        </div>
+                        <div style={styles.hidden}>
+                            <NavLink to="/gallery/portrait"
+                                style={styles.activeStyle}
+                            >
+                                portrait
                             </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to="/portrait"
-                            style={styles.activeStyle}>
-                            portrait
-                            </NavLink>
-                    </div>
+                        </div>
+                    </details>
                 </span>
-                <span>
-                    <div
-                        style={styles.contactCont} >
+                <span style={styles.contactCont}>
+                    <div>
                         <a style={styles.contact} href="tahnluiz@gmail.com">
                             <img style={styles.icon} src="https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/closed-envelope.png" alt='email icon' />
                             tahnluiz@gmail.com</a>
@@ -73,24 +74,31 @@ const styles = {
         color: 'black',
         zIndex: '10',
         borderRadius: '5px',
-        borderStyle: 'outset',
-        left: '1em',
-        top: '5em',
+        // borderStyle: 'outset',
+        left: '0vh',
+        top: '8.5vh',
+        position: 'fixed'
 
     },
     icon: {
         height: '1em',
-        padding: '1em',
+        marginRight: '1vh'
+
     },
     activeStyle: {
         color: 'black',
         textDecoration: 'none',
         lineHeight: '2em',
     },
+    hidden: {
+        textIndent: '2em'
+    },
     contact: {
 
     },
     contactCont: {
-
+        lineHeight: '3vh',
+        bottom: '5em',
+        position: 'fixed'
     }
 }

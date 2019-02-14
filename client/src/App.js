@@ -3,13 +3,21 @@ import Login from './Components/Login'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import About from './Components/About';
 import SetsAus from './Components/SetsAus'
-import Portraits from './Components/Portraits';
+import Portraits from './Components/GalleryPortraits';
 import { NavLink } from 'react-router-dom';
-import SlideshowAus from './Components/SlideshowAus';
+
 import Cart from './Components/Cart';
 import NavBar from './Components/Navbar';
+import Home from './Components/Home';
+
+import GalleryAus from './Components/GalleryAus';
+import GalleryPortraits from './Components/GalleryPortraits';
 
 export default class Main extends React.Component {
+  state = {
+    show: false
+  }
+  hideShow = () => this.setState({ show: !this.state.show });
 
   render() {
     return (
@@ -17,10 +25,11 @@ export default class Main extends React.Component {
         <div >
           <span style={styles.header}>
             <button
+              onClick={this.hideShow}
               style={styles.button}>
-              <NavBar />
               <img style={styles.icon} src="https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/menu.png" alt='menu icon' />
             </button>
+            <NavBar show={this.state.show} />
             <div style={styles.cart}>
               <Cart />
             </div>
@@ -30,12 +39,12 @@ export default class Main extends React.Component {
             </NavLink>
           </span>
           <span>
-
+            <Route exact path='/' component={Home} />
             <Route exact path='/admin' component={Login} />
             <Route exact path='/about' component={About} />
             <Route exact path='/sets/australia' component={SetsAus} />
-            <Route exact path='/sets/australia/ss' component={SlideshowAus} />
-            <Route exact path='/gallery/portrait' component={Portraits} />
+            <Route exact path='/gallery/australia' component={GalleryAus} />
+            <Route exact path='/gallery/portrait' component={GalleryPortraits} />
           </span>
           <span style={styles.footer}>
             <h5> © 2019 tahelena </h5>

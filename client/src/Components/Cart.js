@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-awesome-modal';
-
+import { slideSetAus } from './images'
+import AddToCart from './AddToCart';
 export default class Cart extends React.Component {
     state = {
         visible: false
@@ -17,7 +18,7 @@ export default class Cart extends React.Component {
     }
 
     render() {
-        let { img_url, alt } = this.props
+
         return (
             <section>
 
@@ -38,6 +39,20 @@ export default class Cart extends React.Component {
 
 
                             <span style={styles.cartItems}>
+
+                                {
+                                    slideSetAus.map((picture, i) => {
+                                        return (
+                                            <AddToCart
+                                                key={i}
+                                                img_url={picture.img_url}
+                                                alt={picture.alt}
+                                                price={picture.price}
+                                                exif={picture.exif}
+                                            />
+                                        )
+                                    })
+                                }
 
                             </span>
 
@@ -79,7 +94,7 @@ const styles = {
         gridTemplateColumns: '6fr 2fr 1fr',
         padding: '1em',
         background: 'lightgray',
-        textAlign: 'right',
+        textAlign: 'center',
     },
     subTotal: {
         display: 'grid',
