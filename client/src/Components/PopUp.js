@@ -22,16 +22,18 @@ export default class PopUp extends React.Component {
         this.setState({ [which]: 'none' })
     }
 
+
     render() {
         let { img_url, alt, exif } = this.props
         return (
             <section>
-
+                <img onClick={() => this.props.handleDelete(this.props.id)} style={styles.delete} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
                 <img style={styles.image} src={img_url} alt={alt} value="Open" onClick={() => this.openModal()} />
                 <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                     <span>
-                        <a href="javascript:void(0);" onClick={() => this.closeModal()}><img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' /> </a>
+                        <a href="javascript:void(0);" onClick={() => this.closeModal()}><img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' /> </a>
                         <div style={styles.popup}>
+                            <span></span>
                             <span>
                                 <img style={styles.imagePopUp} src={img_url} alt={alt} />
                                 <p style={{ ...styles.exif, display: this.state.displayTwo }}> {exif}</p>
@@ -40,7 +42,9 @@ export default class PopUp extends React.Component {
                                     <p>A3 print on 300gsm fine art paper </p>
                                     <h3>€85.00</h3>
 
-                                    <button style={styles.button}>add to cart</button>
+                                    <button
+
+                                        style={styles.button}>add to cart</button>
 
                                     <p> For other sizes/finishes and digital use contact us</p>
                                     <a href="tahnluiz@gmail.com">tahnluiz@gmail.com</a>
@@ -50,10 +54,10 @@ export default class PopUp extends React.Component {
                             <span style={styles.iconColumn} >
                                 <img
                                     onClick={() => this.handleClick('displayOne')}
-                                    style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' />
+                                    style={styles.iconCart} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/shopping-cart.png' alt='' />
                                 <img
                                     onClick={() => this.handleClick('displayTwo')}
-                                    style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' />
+                                    style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/image-information-button.png' alt='' />
 
                             </span>
                         </div>
@@ -65,9 +69,12 @@ export default class PopUp extends React.Component {
     }
 }
 const styles = {
+    delete: {
+        height: '20px'
+    },
     popup: {
         display: 'grid',
-        gridTemplateColumns: '93% 7%',
+        gridTemplateColumns: '5% 88% 5%',
         height: '100%',
 
     },
@@ -89,7 +96,6 @@ const styles = {
         margin: '3em'
     },
     image: {
-
         alignSelf: 'center',
         height: '20em',
         overflow: 'hidden',

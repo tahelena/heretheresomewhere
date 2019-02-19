@@ -2,35 +2,26 @@ import React from 'react';
 import Modal from 'react-awesome-modal';
 import { slideSetAus } from './images'
 import AddToCart from './AddToCart';
+import { NavLink } from 'react-router-dom'
+
 export default class Cart extends React.Component {
-    state = {
-        visible: false
-    }
-    openModal() {
-        this.setState({
-            visible: true
-        });
-    }
-    closeModal() {
-        this.setState({
-            visible: false
-        });
-    }
+
 
     render() {
 
         return (
             <section>
 
-                <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/supermarket.png' alt='cart icon' value="Open" onClick={() => this.openModal()} />
+                <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/supermarket.png' alt='cart icon' value="Open" onClick={() => this.props.openModal()} />
 
-                <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                <Modal visible={this.props.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.props.closeModal()}>
                     <span>
-                        <a href="javascript:void(0);" onClick={() => this.closeModal()}>
+                        <a href="javascript:void(0);" onClick={() => this.props.closeModal()}>
                             <img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' />
                         </a>
 
                         <div style={styles.popup}>
+
                             <span style={styles.mainBar}>
                                 <div>Item</div>
                                 <div>Qty</div>
@@ -39,7 +30,6 @@ export default class Cart extends React.Component {
 
 
                             <span style={styles.cartItems}>
-
                                 {
                                     slideSetAus.map((picture, i) => {
                                         return (
@@ -47,22 +37,32 @@ export default class Cart extends React.Component {
                                                 key={i}
                                                 img_url={picture.img_url}
                                                 alt={picture.alt}
-                                                price={picture.price}
                                                 exif={picture.exif}
                                             />
                                         )
                                     })
                                 }
-
                             </span>
-
 
                             <span style={styles.subTotal}>
                                 <div>Subtotal</div>
                                 <div>VALUE</div>
-
                             </span>
+
                         </div>
+
+                        <div style={styles.checkout} >
+                            <NavLink to="/checkout"
+                                style={styles.activeStyle}>
+                                <button
+                                    style={styles.buttonCheckout}>
+                                    Check out
+                              </button>
+                            </NavLink>
+
+
+                        </div>
+
                     </span>
                 </Modal>
             </section>
@@ -72,7 +72,6 @@ export default class Cart extends React.Component {
 const styles = {
     popup: {
         display: 'block',
-        height: '100%',
         margin: '5em 8em',
     },
 
@@ -128,7 +127,7 @@ const styles = {
     },
     icon: {
         height: '2em',
-        padding: '0',
+        padding: '1vh',
         left: '6em',
     },
     iconCart: {
@@ -168,7 +167,26 @@ const styles = {
         fontWeight: 'bold',
         fontVariant: ' all-small-caps',
         fontSize: 'x-large',
-    }
+    },
+    buttonCheckout: {
+        background: 'rgba(181, 180, 180, 0.8)',
+        padding: '0.5em 1em',
+        borderRadius: '12px',
+        // fontWeight: 'bold',
+        fontSize: 'x-large',
+
+    },
+    checkout: {
+        bottom: '15vh',
+        right: '15vh',
+        position: 'fixed',
+
+    },
+    activeStyle: {
+        color: 'black',
+        textDecoration: 'none',
+        lineHeight: '2em',
+    },
 }
 
 

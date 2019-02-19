@@ -25,13 +25,13 @@ export default class Home extends React.Component {
         return (
             <div style={styles.slideContainer}>
                 <span onClick={prevImage}>
-                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/back.png' />
+                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/back.png' alt='' />
                 </span>
                 <span>
-                    <img style={styles.image} src={slideHome[index]} />
+                    <img style={styles.image} src={slideHome[index].img_url} alt={slideHome[index].alt} />
                 </span>
                 <span onClick={nextImage}>
-                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/right-arrow.png' />
+                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/right-arrow.png' alt='' />
                 </span>
             </div>
         )

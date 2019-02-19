@@ -4,7 +4,7 @@ import React from 'react'
 export default class AddToCart extends React.Component {
 
     render() {
-        let { img_url, alt, price } = this.props
+        let { img_url, alt } = this.props
         return (
             <div style={styles.item}>
                 <span>
@@ -21,9 +21,10 @@ export default class AddToCart extends React.Component {
                     </button>
                 </span>
                 <span>
-                    <input
-                        style={styles.input}
-                    />
+                    <input style={styles.input}>
+
+                    </input>
+
                 </span>
                 <span style={styles.addSub}>
                     <button
@@ -39,7 +40,7 @@ export default class AddToCart extends React.Component {
                 </span>
 
                 <span style={styles.cost}>
-                    {price}
+                    €85.00
                 </span>
             </div>
         )

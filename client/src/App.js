@@ -1,24 +1,37 @@
 import React from 'react';
-import Login from './Components/Login'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Login from './Admin/Login'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import About from './Components/About';
-import SetsAus from './Components/SetsAus'
-import Portraits from './Components/GalleryPortraits';
-import { NavLink } from 'react-router-dom';
-
 import Cart from './Components/Cart';
 import NavBar from './Components/Navbar';
 import Home from './Components/Home';
-
-import GalleryAus from './Components/GalleryAus';
 import GalleryPortraits from './Components/GalleryPortraits';
+import Checkout from './Components/Checkout';
+import AdminProd from './Admin/AdminProd';
+import AdminCat from './Admin/AdminCat';
+import Gallery from './Components/Gallery';
+
+
+
 
 export default class Main extends React.Component {
   state = {
-    show: false
+    show: false, visible: false
   }
   hideShow = () => this.setState({ show: !this.state.show });
 
+  openModal = () => {
+    if (window.location.href !== "http://localhost:3000/checkout") {
+      this.setState({
+        visible: true
+      });
+    }
+  }
+  closeModal = () => {
+    this.setState({
+      visible: false
+    });
+  }
   render() {
     return (
       <Router>
@@ -29,22 +42,40 @@ export default class Main extends React.Component {
               style={styles.button}>
               <img style={styles.icon} src="https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/menu.png" alt='menu icon' />
             </button>
-            <NavBar show={this.state.show} />
+            <NavBar
+              hideShow={this.hideShow}
+              show={this.state.show} />
             <div style={styles.cart}>
-              <Cart />
+              <Cart
+                openModal={this.openModal}
+                closeModal={this.closeModal}
+                visible={this.state.visible} />
             </div>
             <NavLink
-              to='/'>
-              <img style={styles.logo} src="https://res.cloudinary.com/tahelena/image/upload/v1549908976/PhotoProject/logo/logoHTS_2C_524x108.png" alt='here there somewhere logo' />
+              to='/' >
+              <img
+                style={styles.logo} src="https://res.cloudinary.com/tahelena/image/upload/v1549908976/PhotoProject/logo/logoHTS_2C_524x108.png" alt='here there somewhere logo' />
             </NavLink>
           </span>
           <span>
             <Route exact path='/' component={Home} />
             <Route exact path='/admin' component={Login} />
+            <Route exact path='/admin/adminprod' component={AdminProd} />
+            <Route exact path='/admin/admincat' component={AdminCat} />
+
+            <Route exact path='/checkout'
+              render={
+                (props) => (
+                  <Checkout
+                    closeModal={this.closeModal}
+                  />
+                )}
+            />
+
+
             <Route exact path='/about' component={About} />
-            <Route exact path='/sets/australia' component={SetsAus} />
-            <Route exact path='/gallery/australia' component={GalleryAus} />
             <Route exact path='/gallery/portrait' component={GalleryPortraits} />
+            <Route exact path='/gallery/place/:place_id' component={Gallery} />
           </span>
           <span style={styles.footer}>
             <h5> © 2019 tahelena </h5>
@@ -64,7 +95,8 @@ const styles = {
     padding: '1em',
   },
   logo: {
-    height: '5em'
+    height: '5em',
+    padding: '1vh 3vh'
   },
   header: {
     width: '100%',
