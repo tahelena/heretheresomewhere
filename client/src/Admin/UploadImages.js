@@ -15,12 +15,13 @@ export default class UploadImages extends React.Component {
             stylesheet: widgetStyle
         },
             async (error, result) => {
-                debugger
+
                 if (error) {
-                    debugger
+
                 } else if (this.props.name !== '' && this.props.placeID !== '') {
                     debugger
                     const imgInfo = {
+                        home: this.props.home,
                         portrait: this.props.portrait,
                         name: this.props.name,
                         placeID: this.props.placeID,
@@ -32,11 +33,9 @@ export default class UploadImages extends React.Component {
                         ISO: result[0].image_metadata.ISO,
                         lens: result[0].image_metadata.Lens,
                         createDate: result[0].image_metadata.CreateDate,
-                        public_id: result[0].public_id
+                        public_id: result[0].public_id,
                     }
-                    this.setState({ ...imgInfo }, () => {
-                        console.log('=================> this state', this.state.imgInfo)
-                    })
+                    this.setState({ ...imgInfo })
                     this.props.getData({ ...imgInfo })
 
                 } else {
@@ -45,7 +44,7 @@ export default class UploadImages extends React.Component {
             })
     }
     handleClear = e => {
-        this.setState({ name: '', img_url: '', camera: '', model: '', aperture: '', fStop: '', ISO: '', lens: '', createDate: '', placeID: '' })
+        this.setState({ name: '', img_url: '', camera: '', model: '', aperture: '', fStop: '', ISO: '', lens: '', createDate: '', placeID: '', home: false, portrait: false })
     }
     render() {
         let { name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID } = this.state
@@ -64,7 +63,7 @@ export default class UploadImages extends React.Component {
                             <li style={styles.li}>name: {name}</li>
                             <li style={styles.li}>camera:  {camera}</li>
                             <li style={styles.li}>model: {model}</li>
-                            <li style={styles.li}>aperture: {aperture}</li>
+                            <li style={styles.li}>shutter speed: {aperture}</li>
                             <li style={styles.li}>f-stop: {fStop}</li>
                             <li style={styles.li}>ISO: {ISO}</li>
                             <li style={styles.li}>lens: {lens}</li>

@@ -1,32 +1,43 @@
-const Photos = require('../models/photos')
 
+
+const Photos = require('../models/photos')
 const cloudinary = require('cloudinary');
+const config = require('../cloudInfo')
 
 cloudinary.config({
-    cloud_name: 'tahelena',
-    api_key: '748838517216675',
-    api_secret: 'DZvKAzg1tJ9Q64_U9xO38OAtTtM'
+    cloud_name: config.cloud_name,
+    api_key: config.api_key,
+    api_secret: config.api_secret
 });
 
 class PhotosController {
 
+    async addToCart(req, res) {
+        let { id } = req.params;
+        try {
+            const picture = await Photos.find({ _id: id }) //this is to have the separete items in an array separate by comma
+            res.send(picture)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
     async add(req, res) {
-        let { name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, public_id } = req.body
-        console.log('r e q b o b y ', req.body)
-        cloudinary.v2.api.delete_resources([`photo_project/${public_id}`], function (err, res) {
-            console.log(err, res)
-        });
-        return false
+        let { name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, public_id, home } = req.body
         if (!placeID) {
+
             return res.send({ error: 'place id is required!' })
         }
-        console.log('====================================>', req.body)
         try {
-            const newPhoto = await Photos.create({ name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait })
+            const newPhoto = await Photos.create({ name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, home })
             console.log({ newPhoto })
             res.send(newPhoto)
         }
         catch (error) {
+            console.log('r e q b o b y ', req.body)
+            cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
+                console.log(err, res)
+            });
             console.log({ error })
             res.send({ error })
         }
@@ -43,6 +54,19 @@ class PhotosController {
             res.send({ error })
         }
     };
+
+    async findByHome(req, res) {
+        try {
+            const allHome = await Photos.find({ home: true });
+            console.log(allHome)
+            res.send(allHome)
+        }
+        catch (error) {
+            console.log({ error })
+            res.send({ error })
+        }
+    };
+
     async placeID(req, res) {
         // return console.log('**** ============>', req.params)
         let { placeID } = req.params
@@ -59,6 +83,9 @@ class PhotosController {
         let { id } = req.body
         try {
             const removed = await Photos.deleteOne({ _id: id })
+            // cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
+            //     console.log(err, res)
+            // });
             res.send(removed)
         }
         catch (error) { res.send({ error }) }

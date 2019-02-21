@@ -3,7 +3,7 @@ import Modal from 'react-awesome-modal';
 
 export default class PopUp extends React.Component {
     state = {
-        visible: false, displayOne: 'none', displayTwo: 'none'
+        visible: false, displayOne: 'none', displayTwo: 'none', cart: []
     }
     openModal() {
 
@@ -21,30 +21,47 @@ export default class PopUp extends React.Component {
         if (this.state[which] === 'none') return this.setState({ [which]: 'block' })
         this.setState({ [which]: 'none' })
     }
-
+    handleAddToCart = () => {
+        let { picture } = this.props, { cart } = this.state
+        // debugger
+        let shoppingcart = JSON.parse(localStorage.getItem('photo')) || []
+        shoppingcart.push({ 'photo_id': picture._id, 'img_url': picture.img_url, 'alt': picture.name, 'quantity': 1 })
+        localStorage.setItem('photo', JSON.stringify(shoppingcart))
+        // debugger
+        this.setState({ cart: shoppingcart })
+        console.log('=============> cart ', cart)
+    }
 
     render() {
-        let { img_url, alt, exif } = this.props
+        let { img_url, alt, picture } = this.props
         return (
-            <section>
-                <img onClick={() => this.props.handleDelete(this.props.id)} style={styles.delete} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
+            <section style={styles.section}>
+
                 <img style={styles.image} src={img_url} alt={alt} value="Open" onClick={() => this.openModal()} />
+                <img onClick={() => this.props.handleDelete(this.props.id)} style={styles.delete} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
+
                 <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+
                     <span>
                         <a href="javascript:void(0);" onClick={() => this.closeModal()}><img style={styles.iconX} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' /> </a>
+
                         <div style={styles.popup}>
                             <span></span>
                             <span>
                                 <img style={styles.imagePopUp} src={img_url} alt={alt} />
-                                <p style={{ ...styles.exif, display: this.state.displayTwo }}> {exif}</p>
+                                <p style={{ ...styles.exif, display: this.state.displayTwo }}>
+                                    Camera {picture.camera} {picture.model} |{picture.lens} | fstop {picture.fStop} ISO {picture.ISO} shutter speed {picture.aperture}
+
+                                </p>
                                 <div style={{ ...styles.cartUp, display: this.state.displayOne }}>
                                     <h2>DO YOU LIKE THIS PICTURE?</h2>
                                     <p>A3 print on 300gsm fine art paper </p>
                                     <h3>€85.00</h3>
 
                                     <button
-
-                                        style={styles.button}>add to cart</button>
+                                        onClick={this.handleAddToCart}
+                                        style={styles.button}>
+                                        add to cart</button>
 
                                     <p> For other sizes/finishes and digital use contact us</p>
                                     <a href="tahnluiz@gmail.com">tahnluiz@gmail.com</a>
@@ -61,7 +78,9 @@ export default class PopUp extends React.Component {
 
                             </span>
                         </div>
+
                     </span>
+
                 </Modal>
 
             </section>
@@ -69,8 +88,13 @@ export default class PopUp extends React.Component {
     }
 }
 const styles = {
+    section: {
+        display: 'flex'
+    },
     delete: {
-        height: '20px'
+        height: '20px',
+        // position: 'relative',
+        // float: 'right'
     },
     popup: {
         display: 'grid',

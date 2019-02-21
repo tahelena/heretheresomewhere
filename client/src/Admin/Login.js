@@ -20,7 +20,7 @@ export default class Login extends React.Component {
     render() {
         return (
 
-            <form style={styles.table}
+            <div style={styles.table}
                 onSubmit={this.handleSubmit}>
                 <h3 style={styles.h3}> Username or email</h3>
                 <input
@@ -39,7 +39,7 @@ export default class Login extends React.Component {
                     placeholder='password'
                 />
                 <button style={styles.button}>Log in</button>
-            </form>
+            </div>
         )
     }
 }
@@ -59,12 +59,9 @@ const styles = {
         position: 'relative',
         width: '280px',
         height: '200px',
-        left: '36%',
-        top: '-1em',
-        background: 'rgb(233, 233, 233)',
-        border: '2px solid rgb(0, 0, 0)',
+        border: '1px solid rgb(0, 0, 0)',
         display: 'block',
-        marginTop: '18%',
+        margin: '8% 35%',
         paddingLeft: '6em',
         paddingTop: '2em',
         paddingBottom: '6em',

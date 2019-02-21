@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from 'react-awesome-modal';
-import { slideSetAus } from './images'
 import AddToCart from './AddToCart';
 import { NavLink } from 'react-router-dom'
 
@@ -8,8 +7,9 @@ export default class Cart extends React.Component {
 
 
     render() {
-
+        let shoppingcart = JSON.parse(localStorage.getItem('photo')) || []
         return (
+
             <section>
 
                 <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/supermarket.png' alt='cart icon' value="Open" onClick={() => this.props.openModal()} />
@@ -23,21 +23,16 @@ export default class Cart extends React.Component {
                         <div style={styles.popup}>
 
                             <span style={styles.mainBar}>
-                                <div>Item</div>
-                                <div>Qty</div>
-                                <div>Cost</div>
+                                {['Item', 'Qty', 'Cost'].map((bar, i) => { return (<div key={i} >{bar} </div>) })}
                             </span>
-
 
                             <span style={styles.cartItems}>
                                 {
-                                    slideSetAus.map((picture, i) => {
+                                    shoppingcart.map((photo, i) => {
                                         return (
                                             <AddToCart
                                                 key={i}
-                                                img_url={picture.img_url}
-                                                alt={picture.alt}
-                                                exif={picture.exif}
+                                                photo={photo}
                                             />
                                         )
                                     })
@@ -45,8 +40,7 @@ export default class Cart extends React.Component {
                             </span>
 
                             <span style={styles.subTotal}>
-                                <div>Subtotal</div>
-                                <div>VALUE</div>
+                                {['Value', 'SubTotal'].map((bar, i) => { return (<div key={i} >{bar} </div>) })}
                             </span>
 
                         </div>
@@ -73,6 +67,7 @@ const styles = {
     popup: {
         display: 'block',
         margin: '5em 8em',
+
     },
 
     centralBlock: {
@@ -86,21 +81,22 @@ const styles = {
         display: 'grid',
         gridTemplateColumns: '1fr',
         padding: '1em',
-        background: 'whitesmoke',
     },
     mainBar: {
         display: 'grid',
         gridTemplateColumns: '6fr 2fr 1fr',
         padding: '1em',
-        background: 'lightgray',
+        background: 'whitesmoke',
         textAlign: 'center',
+        border: 'solid 1px lightgray'
     },
     subTotal: {
         display: 'grid',
         gridTemplateColumns: '2fr 1fr',
         padding: '1em',
-        background: 'lightgray',
+        background: 'whitesmoke',
         textAlign: 'right',
+        border: 'solid 1px lightgray'
     },
     imagePopUp: {
         objectFit: 'scale-down',

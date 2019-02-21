@@ -5,7 +5,7 @@ import UploadImages from './UploadImages';
 export default class AdminProd extends React.Component {
     state = {
         value: '', place: '',
-        placeID: '', places: [], name: '', portrait: false
+        placeID: '', places: [], name: '', portrait: false, home: false
     }
     async componentDidMount() {
         this.findCat();
@@ -36,25 +36,29 @@ export default class AdminProd extends React.Component {
     }
     handlePortrait = () => {
         this.setState({ portrait: !this.state.portrait }, () => {
-            console.log('handle portrait', this.state)
+            console.log('******* handle portrait', this.state.portrait)
         })
     }
+    handleHome = () => {
+        this.setState({ home: !this.state.home }, () => {
+            console.log('>>>>>> handle home', this.state.home)
+        })
+    }
+
     getData = imgInfo => {
         this.setState({ ...imgInfo })
     }
     handleSubmit = async () => {
-        let { name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, public_id } = this.state
-        let obj = { name, img_url, camera, model, aperture, fStop, ISO, createDate, placeID, portrait, public_id }
+        let { name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, public_id, home } = this.state
+        let obj = { name, img_url, camera, model, aperture, fStop, ISO, createDate, placeID, portrait, public_id, home }
         for (let key in obj) {
             if (!obj[key] && obj[key] !== false) {
-                return alert('Missing required info!' + key)
+                return alert('Missing required info: ' + key)
             }
         }
-
         console.log(this.state)
         let url = 'http://localhost:4001/photos/add'
         try {
-            debugger
             const add = await axios.post(url, {
                 name,
                 img_url,
@@ -67,7 +71,8 @@ export default class AdminProd extends React.Component {
                 createDate,
                 placeID,
                 portrait,
-                public_id
+                public_id,
+                home
             })
             if (!add.data.error) {
                 alert('image added to the database')
@@ -85,7 +90,8 @@ export default class AdminProd extends React.Component {
                 lens: '',
                 createDate: '',
                 placeID: '',
-                portrait: false
+                portrait: false,
+                home: false
             })
         }
         catch (error) {
@@ -108,10 +114,11 @@ export default class AdminProd extends React.Component {
                             value={this.state.name}
                             placeholder='name'
                         />
-
                     </label>
                     <label> Portrait
                     <input onChange={this.handlePortrait} type="checkbox" name="portrait" value={this.state.portrait} /></label>
+                    <label> Home picture
+                    <input onChange={this.handleHome} type="checkbox" name="home" value={this.state.home} /></label>
                     <label>Sets</label>
                     <select onClick={this.handleSelect}> <option />
                         {
@@ -139,7 +146,7 @@ const styles = {
     table: {
         position: 'relative',
         width: 'fit-content',
-        margin: '5% 35%',
+        margin: '0% 35%',
         background: 'white',
         border: '1px solid rgb(0, 0, 0)',
         display: 'grid',

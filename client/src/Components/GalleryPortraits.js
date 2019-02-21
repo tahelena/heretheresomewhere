@@ -10,7 +10,7 @@ export default class GalleryPortraits extends React.Component {
         this.findPortraits();
     }
     findPortraits = async () => {
-        const url = "http://localhost:4001/photos"
+        const url = "http://localhost:4001/photos/portrait"
         try {
             const allPortraits = await axios.get(url);
             if (!allPortraits.error) {
@@ -22,15 +22,17 @@ export default class GalleryPortraits extends React.Component {
         }
     }
     handleDelete = async (id) => {
-        debugger
-        const url = "http://localhost:4001/photos/remove"
-        try {
-            debugger
-            await axios.post(url, { id });
-            this.findPortraits();
-        }
-        catch (error) {
-            debugger
+        const bool = window.confirm('Are you sure?')
+        if (bool) {
+            const url = "http://localhost:4001/photos/remove"
+            try {
+                debugger
+                await axios.post(url, { id });
+                this.findImage();
+            }
+            catch (error) {
+                debugger
+            }
         }
     }
 
@@ -46,7 +48,7 @@ export default class GalleryPortraits extends React.Component {
                                     key={i}
                                     img_url={picture.img_url}
                                     alt={picture.name}
-                                    exif={picture.exif}
+                                    picture={picture}
                                     handleDelete={this.handleDelete}
                                     id={picture._id}
 

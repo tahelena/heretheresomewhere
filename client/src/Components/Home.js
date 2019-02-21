@@ -1,40 +1,65 @@
 import React from 'react';
-import { slideHome } from './images';
+import axios from 'axios';
 
 
 export default class Home extends React.Component {
     state = {
-        index: 0
+        i: 0, allHome: []
+    }
+
+    async componentDidMount() {
+
+        this.findHome();
+    }
+    findHome = async () => {
+        const url = "http://localhost:4001/photos/"
+        try {
+
+            const allHome = await axios.get(url);
+            if (!allHome.error) {
+                debugger
+                this.setState({ allHome: allHome.data })
+
+            }
+        }
+        catch (error) {
+            debugger
+        }
     }
     nextImage = () => {
-        let { index } = this.state;
-        if (index < slideHome.length - 1) {
-            index++
-            this.setState({ index })
+        let { i, allHome } = this.state;
+        if (i < allHome.length - 1) {
+            i++
+            this.setState({ i })
         }
     }
     prevImage = () => {
-        let { index } = this.state;
-        if (index !== 0) {
-            index--
-            this.setState({ index })
+        let { i } = this.state;
+        if (i !== 0) {
+            i--
+            this.setState({ i })
         }
     }
     render() {
-        let { index } = this.state, { prevImage, nextImage } = this;
-        return (
-            <div style={styles.slideContainer}>
-                <span onClick={prevImage}>
-                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/back.png' alt='' />
-                </span>
-                <span>
-                    <img style={styles.image} src={slideHome[index].img_url} alt={slideHome[index].alt} />
-                </span>
-                <span onClick={nextImage}>
-                    <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/right-arrow.png' alt='' />
-                </span>
-            </div>
-        )
+        let { i, allHome } = this.state, { prevImage, nextImage } = this;
+        if (allHome.length > 0) {
+            return (
+                <div style={styles.slideContainer}>
+                    <span onClick={prevImage} >
+                        <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/back.png' alt='' />
+                    </span>
+                    <span>
+                        <img style={styles.image} src={allHome[i].img_url} alt={allHome[i].name} />
+                    </span>
+                    <span onClick={nextImage} >
+                        <img style={styles.icon} src='https://res.cloudinary.com/tahelena/image/upload/v1549908824/PhotoProject/icons/right-arrow.png' alt='' />
+                    </span>
+                </div>
+            )
+        }
+        else {
+            return null
+        }
     }
 }
 

@@ -11,6 +11,7 @@ const photosSchema = new mongoose.Schema({
     lens: { type: String },
     createDate: { type: String, required: true, unique: true },
     portrait: { type: Boolean, required: true },
+    home: { type: Boolean, required: true },
     placeID: { type: mongoose.Types.ObjectId, ref: 'Places', required: true }
 
 })

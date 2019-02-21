@@ -15,38 +15,49 @@ export default class Gallery extends React.Component {
             const allPhotos = await axios.get(url);
             this.setState({ allPhotos: allPhotos.data })
             this.findImage();
+
         }
         catch (error) {
             debugger
         }
     }
     handleDelete = async (id) => {
-        const url = "http://localhost:4001/photos/remove"
-        try {
-            debugger
-            await axios.post(url, { id });
-            this.findImage();
+        const bool = window.confirm('Are you sure?')
+        if (bool) {
+            const url = "http://localhost:4001/photos/remove"
+            try {
+                debugger
+                await axios.post(url, { id });
+                this.findImage();
+            }
+            catch (error) {
+                debugger
+            }
         }
-        catch (error) {
-            debugger
-        }
+
     }
     render() {
         let { allPhotos } = this.state
+
         return (
             <div>
                 <div style={styles.centralBlock}>
                     {
+
                         allPhotos.map((picture, i) => {
+
                             return (
                                 <PopUp
+
                                     key={i}
                                     img_url={picture.img_url}
                                     alt={picture.alt}
-                                    exif={picture.exif}
+                                    picture={picture}
                                     handleDelete={this.handleDelete}
                                     id={picture._id}
+
                                 />
+
                             )
                         })
                     }

@@ -43,11 +43,11 @@ export default class NavBar extends React.Component {
                             about
                             </NavLink>
                     </div>
-                    <div>
+                    <div style={styles.gallery}>
                         <NavLink
                             onClick={this.props.hideShow}
                             to="/gallery/portrait"
-                            style={styles.activeStyle}>
+                            style={styles.gallery}>
                             portrait
                             </NavLink>
                     </div>
@@ -57,11 +57,10 @@ export default class NavBar extends React.Component {
                                 return <NavLink
                                     to={`/gallery/place/${ele._id}`}
                                     onClick={this.props.hideShow}
-                                    style={styles.activeStyle}
+                                    style={styles.gallery}
                                     key={i}>
-                                    <p >{ele.place}</p>
+                                    <div >{ele.place}</div>
                                 </NavLink>
-
                             })
                         }
                     </div>
@@ -91,6 +90,13 @@ export default class NavBar extends React.Component {
     }
 }
 const styles = {
+    gallery: {
+        color: 'black',
+        textDecoration: 'none',
+        lineHeight: '2em',
+        fontSize: 'x-large',
+        textIndent: '1em',
+    },
     bar: {
         fontSize: 'xx-large',
 
@@ -102,7 +108,7 @@ const styles = {
         background: 'rgba(251, 250, 250, 0.95)',
         padding: '2em 0em 1.5em 6em',
         color: 'black',
-        zIndex: '10',
+        zIndex: '1000000',
         borderRadius: '5px',
         // borderStyle: 'outset',
         left: '0vh',

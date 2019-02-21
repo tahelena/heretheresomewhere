@@ -107,14 +107,17 @@ const styles = {
     position: 'sticky',
   },
   footer: {
-    position: 'relative',
+    position: 'static',
     textAlign: 'center',
     bottom: '0',
+    float: 'right',
+    padding: '1em'
   },
   cart: {
     height: '2em',
     padding: '1.5em',
     left: '0',
     position: 'relative'
-  }
+  },
+
 }

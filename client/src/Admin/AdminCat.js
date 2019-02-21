@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import AdminProd from './AdminProd';
 import UpdateCat from './UpdateCat';
-import SeeAllPhotos from './SeeAllPhotos';
 export default class AdminCat extends React.Component {
     state = {
         place: '', places: [], newPlace: ''
@@ -58,20 +57,6 @@ export default class AdminCat extends React.Component {
             console.log({ error })
         }
     }
-    handlePopUp = async () => {
-        let { placeID } = this.state
-
-        console.log(this.state)
-        let url = 'http://localhost:4001/photos/placeID/'
-        try {
-            const add = await axios.get(url, {
-                placeID: placeID
-            })
-        }
-        catch (error) {
-            debugger
-        }
-    }
 
     render() {
         let { places, newPlace } = this.state
@@ -87,7 +72,6 @@ export default class AdminCat extends React.Component {
                                     placeID={ele._id}
                                     key={i}>
                                     {ele.place}
-
                                     <button
                                         style={styles.boxButton}
                                         onClick={(e) => this.handleRemove(e, ele._id)}>
@@ -96,10 +80,6 @@ export default class AdminCat extends React.Component {
                                     <UpdateCat
                                         findCat={this.findCat}
                                         ele={ele}
-                                    />
-                                    <SeeAllPhotos
-
-                                        placeID={this.placeID}
                                     />
                                 </div>
                             })
@@ -117,8 +97,6 @@ export default class AdminCat extends React.Component {
                     />
                     <button style={styles.button}>Add Places</button>
                 </form>
-
-
             </div>
         )
     }

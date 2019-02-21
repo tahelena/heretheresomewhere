@@ -4,35 +4,34 @@ import React from 'react'
 export default class AddToCart extends React.Component {
 
     render() {
-        let { img_url, alt } = this.props
+
+        let { photo } = this.props
         return (
             <div style={styles.item}>
                 <span>
-                    <img style={styles.image} src={img_url} alt={alt} />
+                    <img style={styles.image} src={photo.img_url} alt={photo.alt} />
                 </span>
-                <span style={styles.text}>
-                    {alt}
-
-                </span>
+                <span style={styles.text}> </span>
                 <span>
                     <button
+                        value='remove'
                         style={styles.remove}>
                         remove
                     </button>
                 </span>
                 <span>
-                    <input style={styles.input}>
-
-                    </input>
+                    <input style={styles.input} />
 
                 </span>
                 <span style={styles.addSub}>
                     <button
+                        value='add'
                         style={styles.button}
                     >
                         +
                     </button>
                     <button
+                        value='subtract'
                         style={styles.button}
                     >
                         -

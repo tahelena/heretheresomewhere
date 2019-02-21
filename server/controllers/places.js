@@ -1,10 +1,17 @@
 const Places = require('../models/places')
+const cloudinary = require('cloudinary');
+const config = require('../cloudInfo')
+
+cloudinary.config({
+    cloud_name: config.cloud_name,
+    api_key: config.api_key,
+    api_secret: config.api_secret
+});
 
 class PlacesController {
     async find(req, res) {
         try {
             const allPlaces = await Places.find({});
-            // console.log({ allPlaces })
             res.send(allPlaces)
         }
         catch (error) {
@@ -28,6 +35,9 @@ class PlacesController {
         try {
             const removed = await Places.deleteOne({ _id: id })
             // await Photos.deleteMany({ placeID: id })
+            // cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
+            //     console.log(err, res)
+            // });
             res.send(removed)
         }
         catch (error) { res.send({ error }) }
