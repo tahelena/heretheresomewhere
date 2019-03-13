@@ -3,16 +3,18 @@ import Modal from 'react-awesome-modal';
 
 export default class PopUp extends React.Component {
     state = {
-        visible: false, displayOne: 'none', displayTwo: 'none', cart: []
+        visible: false, displayOne: 'none', displayTwo: 'none'
     }
-    openModal() {
 
+
+    openModal() {
         this.setState({
             visible: true
         });
+        this.props.handleFind();
     }
-    closeModal() {
 
+    closeModal() {
         this.setState({
             visible: false
         });
@@ -23,22 +25,28 @@ export default class PopUp extends React.Component {
     }
     handleAddToCart = () => {
         let { picture } = this.props, { cart } = this.state
-        // debugger
         let shoppingcart = JSON.parse(localStorage.getItem('photo')) || []
         shoppingcart.push({ 'photo_id': picture._id, 'img_url': picture.img_url, 'alt': picture.name, 'quantity': 1 })
         localStorage.setItem('photo', JSON.stringify(shoppingcart))
-        // debugger
-        this.setState({ cart: shoppingcart })
-        console.log('=============> cart ', cart)
+        alert('picture added to the car')
+        this.closeModal();
+        this.props.handleFind();
     }
+
+
 
     render() {
         let { img_url, alt, picture } = this.props
+        let myStyle = {}
+        if (!localStorage.token) {
+            myStyle = { display: 'none' }
+        }
         return (
-            <section style={styles.section}>
+            <section className='BigPopUp' style={styles.section}>
 
                 <img style={styles.image} src={img_url} alt={alt} value="Open" onClick={() => this.openModal()} />
-                <img onClick={() => this.props.handleDelete(this.props.id)} style={styles.delete} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
+                <img
+                    onClick={() => this.props.handleDelete(this.props.id)} style={{ ...styles.delete, ...myStyle }} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
 
                 <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
 
@@ -88,13 +96,9 @@ export default class PopUp extends React.Component {
     }
 }
 const styles = {
-    section: {
-        display: 'flex'
-    },
+
     delete: {
         height: '20px',
-        // position: 'relative',
-        // float: 'right'
     },
     popup: {
         display: 'grid',

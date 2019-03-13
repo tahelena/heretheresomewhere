@@ -39,24 +39,23 @@ export default class GalleryPortraits extends React.Component {
     render() {
         let { allPortraits } = this.state
         return (
-            <div>
-                <div style={styles.centralBlock}>
-                    {
-                        allPortraits.map((picture, i) => {
-                            return (
-                                <PopUp
-                                    key={i}
-                                    img_url={picture.img_url}
-                                    alt={picture.name}
-                                    picture={picture}
-                                    handleDelete={this.handleDelete}
-                                    id={picture._id}
+            <div style={styles.centralBlock}>
+                {
+                    allPortraits.map((picture, i) => {
+                        return (
+                            <PopUp
+                                handleFind={this.props.handleFind}
+                                key={i}
+                                img_url={picture.img_url}
+                                alt={picture.name}
+                                picture={picture}
+                                handleDelete={this.handleDelete}
+                                id={picture._id}
 
-                                />
-                            )
-                        })
-                    }
-                </div>
+                            />
+                        )
+                    })
+                }
             </div>
         )
     }

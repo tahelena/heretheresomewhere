@@ -3,6 +3,7 @@
 const Photos = require('../models/photos')
 const cloudinary = require('cloudinary');
 const config = require('../cloudInfo')
+const Orders = require('../models/orders')
 
 cloudinary.config({
     cloud_name: config.cloud_name,
@@ -10,7 +11,40 @@ cloudinary.config({
     api_secret: config.api_secret
 });
 
+
 class PhotosController {
+    constructor() {
+        this.payment = this.payment.bind(this)
+        this.createOrder = this.createOrder.bind(this)
+    }
+    async createOrder(order, res) {
+        console.log('=====>', order)
+        try {
+            const myorder = await Orders.create(order)
+            res.send(myorder)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    async payment(req, res) {
+        let { orderInfo, total } = req.body
+        orderInfo.total = total
+        const stripe = require("stripe")("sk_test_iFqV8jsKdlhN0xG3wglcCVMH");
+        try {
+            const myPayment = await stripe.charges.create(req.body.stripe);
+            if (myPayment.status === 'succeeded') {
+                // res.send({ message: 'Ṕayment succesfull' })
+                this.createOrder(orderInfo, res)
+            } else {
+                res.send({ message: 'Something went wrong...' })
+            }
+        } catch (error) {
+            console.log(error)
+            res.send({ error })
+        }
+
+    }
+
 
     async addToCart(req, res) {
         let { id } = req.params;
@@ -30,7 +64,7 @@ class PhotosController {
         }
         try {
             const newPhoto = await Photos.create({ name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, home })
-            console.log({ newPhoto })
+            // console.log({ newPhoto })
             res.send(newPhoto)
         }
         catch (error) {
@@ -46,7 +80,7 @@ class PhotosController {
     async findByPortrait(req, res) {
         try {
             const allPhotos = await Photos.find({ portrait: true });
-            console.log(allPhotos)
+            // console.log(allPhotos)
             res.send(allPhotos)
         }
         catch (error) {
@@ -58,7 +92,7 @@ class PhotosController {
     async findByHome(req, res) {
         try {
             const allHome = await Photos.find({ home: true });
-            console.log(allHome)
+            // console.log(allHome)
             res.send(allHome)
         }
         catch (error) {

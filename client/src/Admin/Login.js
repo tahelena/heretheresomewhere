@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 export default class Login extends React.Component {
     state = {
         user: '', password: ''
@@ -11,16 +12,30 @@ export default class Login extends React.Component {
         console.log('user', user, 'password', password)
 
     }
-    handleSubmit = e => {
-        e.preventDefault();
-        let { user, password } = this.state
-        this.setState({ user: '', password: '' })
-        console.log(user, password)
-    }
+    // handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     let { user, password } = this.state
+
+    //     let url = 'http://localhost:4001/admin/login'
+    //     try {
+    //         const res = await axios.post(url, {
+    //             username: user,
+    //             password: password,
+    //         })
+
+    //         localStorage.setItem('authToken', JSON.stringify(token))
+    //         alert('Welcome back ' + user)
+    //         this.props.isLoggedIn(true)
+    //     }
+    //     catch (error) {
+    //         debugger
+    //     }
+    // }
+
     render() {
         return (
 
-            <div style={styles.table}
+            <form style={styles.table}
                 onSubmit={this.handleSubmit}>
                 <h3 style={styles.h3}> Username or email</h3>
                 <input
@@ -32,6 +47,7 @@ export default class Login extends React.Component {
                 />
                 <h3 style={styles.h3}> Password</h3>
                 <input
+                    type='password'
                     style={styles.input}
                     onChange={this.handleChange}
                     name='password'
@@ -39,7 +55,7 @@ export default class Login extends React.Component {
                     placeholder='password'
                 />
                 <button style={styles.button}>Log in</button>
-            </div>
+            </form>
         )
     }
 }

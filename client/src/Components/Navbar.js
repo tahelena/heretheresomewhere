@@ -18,25 +18,29 @@ export default class NavBar extends React.Component {
         catch (error) {
             debugger
         }
-        console.log(this.state.places)
     }
 
     render() {
         let display = this.props.show ? 'block' : 'none';
         let { places } = this.state
+
+
         return (
             <div style={{ ...styles.navbar, display: display }} >
                 <span style={styles.bar}>
                     <div >
                         <NavLink
+                            activeStyle={styles.active}
+
                             onClick={this.props.hideShow}
-                            to="/"
+                            to="/home"
                             style={styles.activeStyle}>
                             home
                             </NavLink>
                     </div>
                     <div>
                         <NavLink
+                            activeStyle={styles.active}
                             onClick={this.props.hideShow}
                             to="/about"
                             style={styles.activeStyle}>
@@ -45,6 +49,7 @@ export default class NavBar extends React.Component {
                     </div>
                     <div style={styles.gallery}>
                         <NavLink
+                            activeStyle={styles.active}
                             onClick={this.props.hideShow}
                             to="/gallery/portrait"
                             style={styles.gallery}>
@@ -55,6 +60,7 @@ export default class NavBar extends React.Component {
                         {
                             places.map((ele, i) => {
                                 return <NavLink
+                                    activeStyle={styles.active}
                                     to={`/gallery/place/${ele._id}`}
                                     onClick={this.props.hideShow}
                                     style={styles.gallery}
@@ -121,11 +127,15 @@ const styles = {
         marginRight: '1vh'
 
     },
+    active: {
+        textDecoration: 'underline'
+    },
     activeStyle: {
         color: 'black',
         textDecoration: 'none',
         lineHeight: '2em',
-        fontSize: 'x-large'
+        fontSize: 'x-large',
+        padding: '0.3em'
 
     },
     hidden: {

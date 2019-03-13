@@ -8,6 +8,8 @@ router.get('/portrait', controller.findByPortrait);
 router.post('/add', controller.add);
 router.get('/place/:placeID', controller.placeID)
 router.post('/remove', controller.remove);
+router.post('/payment', controller.payment);
+
 
 
 module.exports = router;

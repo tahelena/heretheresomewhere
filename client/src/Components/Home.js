@@ -17,7 +17,7 @@ export default class Home extends React.Component {
 
             const allHome = await axios.get(url);
             if (!allHome.error) {
-                debugger
+                // debugger
                 this.setState({ allHome: allHome.data })
 
             }

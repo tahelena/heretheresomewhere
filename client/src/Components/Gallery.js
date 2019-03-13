@@ -40,28 +40,25 @@ export default class Gallery extends React.Component {
         let { allPhotos } = this.state
 
         return (
-            <div>
-                <div style={styles.centralBlock}>
-                    {
+            <div style={styles.centralBlock}>
+                {
+                    allPhotos.map((picture, i) => {
 
-                        allPhotos.map((picture, i) => {
+                        return (
+                            <PopUp
+                                handleFind={this.props.handleFind}
+                                key={i}
+                                img_url={picture.img_url}
+                                alt={picture.alt}
+                                picture={picture}
+                                handleDelete={this.handleDelete}
+                                id={picture._id}
 
-                            return (
-                                <PopUp
+                            />
 
-                                    key={i}
-                                    img_url={picture.img_url}
-                                    alt={picture.alt}
-                                    picture={picture}
-                                    handleDelete={this.handleDelete}
-                                    id={picture._id}
-
-                                />
-
-                            )
-                        })
-                    }
-                </div>
+                        )
+                    })
+                }
             </div>
         )
     }

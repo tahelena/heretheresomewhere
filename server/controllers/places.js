@@ -15,7 +15,7 @@ class PlacesController {
             res.send(allPlaces)
         }
         catch (error) {
-            console.log({ error })
+            // console.log({ error })
             res.send({ error })
         }
     };

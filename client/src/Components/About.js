@@ -25,7 +25,7 @@ const styles = {
 
     },
     image: {
-        backgroundImage: 'url("https://res.cloudinary.com/tahelena/image/upload/v1549908961/PhotoProject/pictures/IMG_2336.jpg")',
+        backgroundImage: 'url("https://res.cloudinary.com/tahelena/image/upload/v1551286296/PhotoProject/IMG_2336.jpg")',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',

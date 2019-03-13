@@ -1,6 +1,7 @@
 const app = require('express')(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
+
     port = process.env.port || 4001;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cors
@@ -31,11 +32,11 @@ mongoose.connect('mongodb://127.0.0.1/photo_project', () => {
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> routes
 const placesRoute = require('./routes/places');
 const photosRoute = require('./routes/photos');
-
+const adminRoute = require('./routes/admin')
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> user routes
 app.use('/places', placesRoute)
 app.use('/photos', photosRoute)
-
+app.use('/admin', adminRoute)
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start server
 app.listen(port, () => console.log(`*************************************************** server serving on port ${port}`))
