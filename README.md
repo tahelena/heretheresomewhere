@@ -8,14 +8,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Libraries used
 
-    axios, 0.18.0
-    react, 16.8.1
-    react-awesome-modal, 2.0.5
-    react-dom, 16.8.1
-    react-router, 4.3.1
-    react-router-dom, 4.3.1
-    react-stripe-checkout, 2.6.3
-    react-stripe-elements, 2.0.3
+    axios 0.18.0
+    react 16.8.1
+    react-awesome-modal 2.0.5
+    react-dom 16.8.1
+    react-router 4.3.1
+    react-router-dom 4.3.1
+    react-stripe-checkout 2.6.3
+    react-stripe-elements 2.0.3
     bcrypt-nodejs 0.0.3
     body-parser 1.18.3
     cloudinary 1.13.2
