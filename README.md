@@ -26,4 +26,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     stripe 6.25.1
     
 # Developer
+
 Thaisa Stelmo tahelena@yahoo.com
