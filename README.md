@@ -25,6 +25,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     mongoose 5.4.14
     stripe 6.25.1
     
-#Developer
+# Developer
 
 Thaisa Stelmo tahelena@yahoo.com
