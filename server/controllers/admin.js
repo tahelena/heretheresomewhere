@@ -57,9 +57,10 @@ class AdminController {
             user.comparePassword(password, (err, match) => {
                 if (match && !err) {
                     var token = jwt.sign(user.toJSON(), config.secret, { expiresIn: 100080 }) //end the token to react(client)
+                    const decoded = jwt.verify(token, config.secret)
                     return res.json({ success: true, token: token, username: username }) //res.json === res.send(sending to react)
                 } else {
-                    return res.json({ success: false, err })
+                    return res.json({ success: false, error: 'wrong password' })
                 }
             })
         })

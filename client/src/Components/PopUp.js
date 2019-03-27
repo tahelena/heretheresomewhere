@@ -38,15 +38,14 @@ export default class PopUp extends React.Component {
     render() {
         let { img_url, alt, picture } = this.props
         let myStyle = {}
-        if (!localStorage.token) {
-            myStyle = { display: 'none' }
-        }
+        if (!localStorage.authToken) { myStyle = { display: 'none' } }
         return (
-            <section className='BigPopUp' style={styles.section}>
+            <div>
 
                 <img style={styles.image} src={img_url} alt={alt} value="Open" onClick={() => this.openModal()} />
                 <img
-                    onClick={() => this.props.handleDelete(this.props.id)} style={{ ...styles.delete, ...myStyle }} src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
+                    onClick={() => this.props.handleDelete(this.props.id)} style={{ ...styles.delete, ...myStyle }}
+                    src='https://res.cloudinary.com/tahelena/image/upload/v1549908823/PhotoProject/icons/cancel-music.png' alt='' />
 
                 <Modal visible={this.state.visible} width="72%" height="86%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
 
@@ -91,7 +90,7 @@ export default class PopUp extends React.Component {
 
                 </Modal>
 
-            </section>
+            </div>
         );
     }
 }
@@ -116,13 +115,9 @@ const styles = {
         margin: '0 auto',
         maxHeight: '100%'
     },
-    centralBlock: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-        alignItems: 'center',
-        justifyItems: 'center',
-        margin: '3em'
-    },
+
+
+
     image: {
         alignSelf: 'center',
         height: '20em',
@@ -130,8 +125,14 @@ const styles = {
         width: '20em',
         margin: '0',
         objectFit: 'cover',
-        padding: '1em 0em',
+        // padding: '1em 0em',
     },
+
+
+
+
+
+
     iconX: {
         height: '1em',
         padding: '1em',

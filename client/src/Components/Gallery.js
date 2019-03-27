@@ -4,38 +4,34 @@ import PopUp from './PopUp';
 
 export default class Gallery extends React.Component {
     state = {
-        allPhotos: [], placeID: ''
+        allPhotos: [],
     }
     componentDidMount() {
         this.findImage();
     }
+
     findImage = async () => {
         const url = `http://localhost:4001/photos/place/${this.props.match.params.place_id}`
         try {
             const allPhotos = await axios.get(url);
             this.setState({ allPhotos: allPhotos.data })
             this.findImage();
-
         }
-        catch (error) {
-            debugger
-        }
+        catch (error) { debugger }
     }
+
     handleDelete = async (id) => {
         const bool = window.confirm('Are you sure?')
         if (bool) {
             const url = "http://localhost:4001/photos/remove"
             try {
-                debugger
                 await axios.post(url, { id });
                 this.findImage();
             }
-            catch (error) {
-                debugger
-            }
+            catch (error) { debugger }
         }
-
     }
+
     render() {
         let { allPhotos } = this.state
 
@@ -65,20 +61,12 @@ export default class Gallery extends React.Component {
 }
 const styles = {
     centralBlock: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-        alignItems: 'center',
-        justifyItems: 'center',
-        // marginTop: '100px',
+        display: 'flex',
+        flexFlow: 'wrap',
+        alignContent: 'center',
+        justifyContent: 'center',
+        maxWidth: '100%',
+        marginTop: '2em'
     },
-    image: {
-        alignSelf: 'center',
-        height: '20em',
-        overflow: 'hidden',
-        width: '20em',
-        margin: '0',
-        objectFit: 'cover',
-        padding: '2em 0.5em',
-    }
 
 }

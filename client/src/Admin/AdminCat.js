@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import AdminProd from './AdminProd';
-import UpdateCat from './UpdateCat';
 export default class AdminCat extends React.Component {
     state = {
         place: '', places: [], newPlace: ''
@@ -15,18 +13,13 @@ export default class AdminCat extends React.Component {
             const places = await axios.get(url);
             this.setState({ places: places.data })
         }
-        catch (error) {
-            debugger
-        }
-        console.log(this.state.places)
+        catch (error) { debugger }
+
     }
     handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value }, () => {
-            console.log(this.state)
-        })
+        this.setState({ [e.target.name]: e.target.value })
     }
     handleSubmit = async (e) => {
-        let { place } = this.state
         e.preventDefault();
         let url = 'http://localhost:4001/places/add'
         try {
@@ -36,30 +29,23 @@ export default class AdminCat extends React.Component {
             this.findCat()
             this.setState({ place: '' })
         }
-        catch (error) {
-            debugger
-        }
-
+        catch (error) { debugger }
     }
     handleRemove = async (e, id) => {
         e.preventDefault();
-
-        let url = 'http://localhost:4001/places/remove'
-        try {
-            await axios.post(url, {
-                id
-            })
-            console.log(id)
-            this.findCat()
-        }
-        catch (error) {
-            debugger
-            console.log({ error })
+        const bool = window.confirm('Are you sure?')
+        if (bool) {
+            let url = 'http://localhost:4001/places/remove'
+            try {
+                await axios.post(url, { id })
+                this.findCat()
+            }
+            catch (error) { debugger }
         }
     }
 
     render() {
-        let { places, newPlace } = this.state
+        let { places } = this.state
         return (
             <div style={styles.outsideTable}>
                 <span style={styles.box}>
@@ -69,7 +55,7 @@ export default class AdminCat extends React.Component {
                             places.map((ele, i) => {
                                 return <div
                                     style={styles.p}
-                                    placeID={ele._id}
+                                    _id={ele._id}
                                     key={i}>
                                     {ele.place}
                                     <button
@@ -77,26 +63,24 @@ export default class AdminCat extends React.Component {
                                         onClick={(e) => this.handleRemove(e, ele._id)}>
                                         Remove
                                 </button>
-                                    <UpdateCat
-                                        findCat={this.findCat}
-                                        ele={ele}
-                                    />
                                 </div>
                             })
                         } </span>
                 </span>
-                <form style={styles.table}
-                    onSubmit={this.handleSubmit}>
-                    <h2 style={styles.h2}>Add Set</h2>
-                    <input
-                        style={styles.input}
-                        onChange={this.handleChange}
-                        name='place'
-                        value={this.state.place}
-                        placeholder='new place'
-                    />
-                    <button style={styles.button}>Add Places</button>
-                </form>
+                <span>
+                    <form style={styles.table}
+                        onSubmit={this.handleSubmit}>
+                        <h2 style={styles.h2}>New Set</h2>
+                        <input
+                            style={styles.input}
+                            onChange={this.handleChange}
+                            name='place'
+                            value={this.state.place}
+                            placeholder='new place'
+                        />
+                        <button style={styles.button}>Add</button>
+                    </form>
+                </span>
             </div>
         )
     }
@@ -104,7 +88,7 @@ export default class AdminCat extends React.Component {
 const styles = {
     outsideTable: {
         display: 'flex',
-        gridTemplateRows: '1fr 1fr',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -127,12 +111,13 @@ const styles = {
     table: {
         position: 'relative',
         width: 'fit-content',
-        border: '1px solid black',
         display: 'grid',
         gridTemplateRows: '2fr 3fr 2fr',
         padding: '1em 4em',
         alignItems: 'center',
-        margin: '6em'
+        margin: '6em',
+        border: '0.5px solid black',
+        borderRadius: '8'
     },
     box: {
         position: 'relative',
@@ -155,6 +140,7 @@ const styles = {
         fontSize: 'larger',
 
         textAlign: 'center',
+
 
     },
     p: {

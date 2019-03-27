@@ -1,53 +1,36 @@
 import React from 'react';
 import axios from 'axios';
 import UploadImages from './UploadImages';
+import widgetStyle from './widgetStyle';
 
 export default class AdminProd extends React.Component {
     state = {
-        value: '', place: '',
-        placeID: '', places: [], name: '', portrait: false, home: false
+        value: '', place: '', placeID: '', places: [], name: '', portrait: false, home: false
     }
     async componentDidMount() {
         this.findCat();
     }
     findCat = async () => {
-        var url = "http://localhost:4001/places/"
         try {
-            const res = await axios.get(url);
+            const res = await axios.get("http://localhost:4001/places/");
             this.setState({ places: res.data })
         }
-        catch (error) {
-            debugger
-        }
-        console.log(this.state.places)
+        catch (error) { debugger }
     }
     handleSelect = e => {
-        let { placeID } = this.state
-        console.log('target value ====>', e.target.value)
-        this.setState({ placeID: e.target.value }, () => {
-            // console.log(this.state.placeID)
-        })
-    }
-    handleChange = e => {
-        let { name } = this.state
-        this.setState({ 'name': e.target.value }, () => {
-            console.log('handle name', this.state.name)
-        })
-    }
-    handlePortrait = () => {
-        this.setState({ portrait: !this.state.portrait }, () => {
-            console.log('******* handle portrait', this.state.portrait)
-        })
-    }
-    handleHome = () => {
-        this.setState({ home: !this.state.home }, () => {
-            console.log('>>>>>> handle home', this.state.home)
-        })
+        this.setState({ placeID: e.target.value })
     }
 
-    getData = imgInfo => {
-        this.setState({ ...imgInfo })
+    handleChange = e => {
+        this.setState({ name: e.target.value })
     }
+    handlePortrait = () => {
+        this.setState({ portrait: !this.state.portrait }, () => { console.log(this.state.portrait) })
+    }
+    handleHome = () => {
+        this.setState({ home: !this.state.home }, () => { console.log(this.state.home) })
+    }
+
     handleSubmit = async () => {
         let { name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, public_id, home } = this.state
         let obj = { name, img_url, camera, model, aperture, fStop, ISO, createDate, placeID, portrait, public_id, home }
@@ -56,7 +39,6 @@ export default class AdminProd extends React.Component {
                 return alert('Missing required info: ' + key)
             }
         }
-        console.log(this.state)
         let url = 'http://localhost:4001/photos/add'
         try {
             const add = await axios.post(url, {
@@ -74,52 +56,82 @@ export default class AdminProd extends React.Component {
                 public_id,
                 home
             })
-            if (!add.data.error) {
-                alert('image added to the database')
-            } else {
-                alert('something went wrong ...')
-            }
-            this.setState({
-                name: '',
-                img_url: '',
-                camera: '',
-                model: '',
-                aperture: '',
-                fStop: '',
-                ISO: '',
-                lens: '',
-                createDate: '',
-                placeID: '',
-                portrait: false,
-                home: false
+
+            !add.data.error ? alert('image added to the database') : alert('something went wrong, please try again...');
+
+        }
+        catch (error) { debugger }
+        this.handleClear()
+    }
+
+    uploadWidget = () => {
+
+        window.cloudinary.openUploadWidget({
+            cloud_name: 'tahelena',
+            upload_preset: 'photo_project',
+            tags: ['hts'],
+            stylesheet: widgetStyle
+        },
+            async (error, result) => {
+
+                if (error) {
+
+                } else if (this.state.name !== '' && this.state.placeID !== '') {
+                    debugger
+                    const imgInfo = {
+
+                        home: this.state.home,
+                        portrait: this.state.portrait,
+                        name: this.state.name,
+                        placeID: this.state.placeID,
+                        img_url: result[0].secure_url,
+                        camera: result[0].image_metadata.Make,
+                        model: result[0].image_metadata.Model,
+                        aperture: result[0].image_metadata.ExposureTime,
+                        fStop: result[0].image_metadata.FNumber,
+                        ISO: result[0].image_metadata.ISO,
+                        lens: result[0].image_metadata.Lens,
+                        createDate: result[0].image_metadata.CreateDate,
+                        public_id: result[0].public_id,
+
+                    }
+                    this.setState({ ...imgInfo })
+
+                } else {
+                    alert('Some information is missing. Are you sure that you gave a name and/or selected a place?')
+                }
             })
-        }
-        catch (error) {
-            debugger
-        }
     }
 
 
+    handleClear = () => {
+        this.setState({ name: '', img_url: '', camera: '', model: '', aperture: '', fStop: '', ISO: '', lens: '', createDate: '', placeID: '', home: false, portrait: false })
+    }
+
     render() {
 
-        let { places, placeID, categories } = this.state
+        let { places } = this.state
         return (
-            <span>
-                <div style={styles.table}>
-                    <h2>Add picture</h2>
+            <div style={styles.table}>
+
+                <span style={styles.box}>
+
+                    <h2 style={{ textAlign: 'center' }}>Add picture</h2>
+
                     <label> Name
-                        <input style={styles.input}
-                            onChange={this.handleChange}
-                            name='name'
-                            value={this.state.name}
-                            placeholder='name'
-                        />
+                        <input style={styles.input} onChange={this.handleChange} name='name' value={this.state.name} placeholder='name' />
                     </label>
+
                     <label> Portrait
-                    <input onChange={this.handlePortrait} type="checkbox" name="portrait" value={this.state.portrait} /></label>
+                    <input onChange={this.handlePortrait} type="checkbox" name="portrait" value={this.state.portrait} />
+                    </label>
+
                     <label> Home picture
-                    <input onChange={this.handleHome} type="checkbox" name="home" value={this.state.home} /></label>
-                    <label>Sets</label>
+                    <input onChange={this.handleHome} type="checkbox" name="home" value={this.state.home} />
+                    </label>
+
+                    <label>Set</label>
+
                     <select onClick={this.handleSelect}> <option />
                         {
                             places.map((ele, i) => {
@@ -131,40 +143,50 @@ export default class AdminProd extends React.Component {
                             })
                         }
                     </select>
+
                     <UploadImages
-                        getData={this.getData}
                         {...this.state}
+                        handleClear={this.handleClear}
+                        handleSubmit={this.handleSubmit}
+                        uploadWidget={this.uploadWidget}
                     />
-                    <button onClick={this.handleSubmit}
-                        style={styles.button} >Submit</button>
-                </div>
-            </span>
+
+                </span>
+
+            </div>
         )
     }
 }
 const styles = {
     table: {
-        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+
+    },
+    box: {
+        placeSelf: 'center',
         width: 'fit-content',
-        margin: '0% 35%',
-        background: 'white',
         border: '1px solid rgb(0, 0, 0)',
         display: 'grid',
         padding: '1em 5em 2em 5em',
+        margin: '4em'
     },
     input: {
         width: '100%',
         margin: '1em 0',
         height: '2em',
     },
+    buttons: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
     button: {
         backgroundColor: 'lightgray',
-        color: 'black',
         padding: '8px 31px',
         borderRadius: '3px',
-        border: '1px solid black',
-        position: 'relative',
-        top: '16px',
+        border: '1px solid',
+        justifySelf: 'center'
     },
     cat: {
         display: 'grid',

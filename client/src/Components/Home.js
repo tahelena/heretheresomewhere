@@ -8,7 +8,6 @@ export default class Home extends React.Component {
     }
 
     async componentDidMount() {
-
         this.findHome();
     }
     findHome = async () => {
@@ -19,12 +18,9 @@ export default class Home extends React.Component {
             if (!allHome.error) {
                 // debugger
                 this.setState({ allHome: allHome.data })
-
             }
         }
-        catch (error) {
-            debugger
-        }
+        catch (error) { debugger }
     }
     nextImage = () => {
         let { i, allHome } = this.state;

@@ -62,20 +62,11 @@ export default class GalleryPortraits extends React.Component {
 }
 const styles = {
     centralBlock: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-        alignItems: 'center',
-        justifyItems: 'center',
-        // marginTop: '100px',
+        display: 'flex',
+        flexFlow: 'wrap',
+        alignContent: 'center',
+        maxWidth: '100%',
+        marginTop: '2em'
     },
-    image: {
-        alignSelf: 'center',
-        height: '20em',
-        overflow: 'hidden',
-        width: '20em',
-        margin: '0',
-        objectFit: 'cover',
-        padding: '2em 0.5em',
-    }
 
 }

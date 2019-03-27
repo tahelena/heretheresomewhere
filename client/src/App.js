@@ -11,16 +11,23 @@ import AdminProd from './Admin/AdminProd';
 import AdminCat from './Admin/AdminCat';
 import Gallery from './Components/Gallery';
 import Payment from './Components/Payment'
+import AdminNavBar from './Admin/AdminNavBar';
 
 
 
 
 export default class Main extends React.Component {
   state = {
-    show: false, visible: false, cart: []
+    show: false, visible: false, cart: [], isLoggedIn: false
   }
   componentDidMount() {
     this.handleFind();
+    this.handleLogin();
+  }
+
+  handleLogin = () => {
+    var token = localStorage.getItem('authToken')
+    if (token) (this.setState({ isLoggedIn: true }))
   }
   hideShow = () => this.setState({ show: !this.state.show });
   handleFind = () => {
@@ -28,7 +35,7 @@ export default class Main extends React.Component {
     this.setState({ cart: shoppingcart })
   }
   render() {
-    console.log(this.state)
+    let { isLoggedIn } = this.state
     return (
       <Router>
         <div >
@@ -42,6 +49,10 @@ export default class Main extends React.Component {
             <NavBar
               hideShow={this.hideShow}
               show={this.state.show} />
+
+            <AdminNavBar
+              isLoggedIn={this.isLoggedIn}
+            />
 
             {this.state.cart.length > 0 ? <NavLink
               to='/cart'
@@ -64,6 +75,7 @@ export default class Main extends React.Component {
               (props) => (
                 <GalleryPortraits
                   {...props}
+                  isLoggedIn={this.isLoggedIn}
                   handleFind={this.handleFind}
                   cart={this.state.cart}
                 />
@@ -73,6 +85,7 @@ export default class Main extends React.Component {
               (props) => (
                 <Gallery
                   {...props}
+                  isLoggedIn={this.isLoggedIn}
                   handleFind={this.handleFind}
                   cart={this.state.cart}
                 />
@@ -101,8 +114,6 @@ export default class Main extends React.Component {
                   />
                 )}
             />
-
-
           </span>
           <span style={styles.footer}>
             <h5> © 2019 tahelena </h5>
@@ -120,7 +131,6 @@ const styles = {
   icon: {
     height: '3em',
     padding: '1.6em',
-
   },
   cart: {
     height: '2em',

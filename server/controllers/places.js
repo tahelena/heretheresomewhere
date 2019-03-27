@@ -34,10 +34,10 @@ class PlacesController {
         let { id } = req.body
         try {
             const removed = await Places.deleteOne({ _id: id })
-            // await Photos.deleteMany({ placeID: id })
-            // cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
-            //     console.log(err, res)
-            // });
+            await Photos.deleteMany({ placeID: id })
+            cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
+                console.log(err, res)
+            });
             res.send(removed)
         }
         catch (error) { res.send({ error }) }

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+
 export default class Login extends React.Component {
     state = {
         user: '', password: ''
@@ -12,27 +13,28 @@ export default class Login extends React.Component {
         console.log('user', user, 'password', password)
 
     }
-    // handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     let { user, password } = this.state
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        let { user, password } = this.state
 
-    //     let url = 'http://localhost:4001/admin/login'
-    //     try {
-    //         const res = await axios.post(url, {
-    //             username: user,
-    //             password: password,
-    //         })
+        let url = 'http://localhost:4001/admin/login'
+        try {
 
-    //         localStorage.setItem('authToken', JSON.stringify(token))
-    //         alert('Welcome back ' + user)
-    //         this.props.isLoggedIn(true)
-    //     }
-    //     catch (error) {
-    //         debugger
-    //     }
-    // }
+            const res = await axios.post(url, {
+                username: user,
+                password: password,
+            })
+
+            localStorage.setItem('authToken', JSON.stringify(res.data.token))
+            alert('Welcome back ' + user)
+            this.props.isLoggedIn(true)
+
+        }
+        catch (error) { debugger }
+    }
 
     render() {
+
         return (
 
             <form style={styles.table}
@@ -69,7 +71,6 @@ const styles = {
         left: '18%',
         position: 'relative',
         top: '16px',
-
     },
     table: {
         position: 'relative',

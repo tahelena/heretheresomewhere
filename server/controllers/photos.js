@@ -62,6 +62,7 @@ class PhotosController {
 
             return res.send({ error: 'place id is required!' })
         }
+
         try {
             const newPhoto = await Photos.create({ name, img_url, camera, model, aperture, fStop, ISO, lens, createDate, placeID, portrait, home })
             // console.log({ newPhoto })
@@ -117,9 +118,9 @@ class PhotosController {
         let { id } = req.body
         try {
             const removed = await Photos.deleteOne({ _id: id })
-            // cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
-            //     console.log(err, res)
-            // });
+            cloudinary.v2.api.delete_resources([req.body.public_id], function (err, res) {
+                console.log(err, res)
+            });
             res.send(removed)
         }
         catch (error) { res.send({ error }) }

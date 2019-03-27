@@ -10,10 +10,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.BigPopUp div div{
-  position: absolute !important;
-}
-.BigCart div{
-  position: static !important;
-}

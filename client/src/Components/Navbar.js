@@ -15,9 +15,7 @@ export default class NavBar extends React.Component {
             const places = await axios.get(url);
             this.setState({ places: places.data })
         }
-        catch (error) {
-            debugger
-        }
+        catch (error) { debugger }
     }
 
     render() {
