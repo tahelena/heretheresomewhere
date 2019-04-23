@@ -1,5 +1,4 @@
-This is a Graduation project of a Full-Stack JavaScript Bootcamp @ Barcelona Code School.
-It's a Photography WebSite that allows the user to see the author's portifolio and buy pictures.
+This is a Graduation project of a Full-Stack JavaScript Boot camp @ Barcelona Code School. It's a Photography Web Site that allows the user to see the author's portfolio and buy pictures.
 
 # Screenshots
 ![Screenshots](https://res.cloudinary.com/tahelena/image/upload/v1552473488/PhotoProject/htsw_collage.jpg)
