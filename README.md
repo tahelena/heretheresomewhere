@@ -26,4 +26,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     
 # Developer
 
-Thaisa Stelmo tahelena@yahoo.com
+Thaisa Stelmo tstelmo@pm.me
